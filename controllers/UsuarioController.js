@@ -20,7 +20,7 @@ export default {
     query: async (req, res, next) => {
         try {
             const reg = await models.Usuario.findOne({_id: req.query._id})
-            .populate('Categoria',{nombre:1});
+            .populate('categoria',{nombre:1});
             if(!reg){
                 res.status(404).send({
                     message: 'El registro no existe'

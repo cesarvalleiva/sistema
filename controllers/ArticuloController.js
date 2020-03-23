@@ -16,7 +16,7 @@ export default {
     query: async (req, res, next) => {
         try {
             const reg = await models.Articulo.findOne({_id: req.query._id})
-            .populate('Categoria',{nombre:1});
+            .populate('categoria',{nombre:1});
             if(!reg){
                 res.status(404).send({
                     message: 'El registro no existe'
@@ -35,7 +35,7 @@ export default {
     queryCodigo: async (req, res, next) => {
         try {
             const reg = await models.Articulo.findOne({codigo: req.query.codigo})
-            .populate('Categoria',{nombre:1});
+            .populate('categoria', {nombre:1});
             if(!reg){
                 res.status(404).send({
                     message: 'El registro no existe'
@@ -55,7 +55,7 @@ export default {
         try {
             let valor = req.query.valor
             const reg = await models.Articulo.find({$or:[{'nombre': new RegExp(valor,'i')},{'descripcion': new RegExp(valor,'i')}]}, {createdAt:0})
-            .populate('Categoria',{nombre:1})
+            .populate('categoria', {nombre:1})
             .sort({'createdAt':-1});
             res.status(200).json(reg);
         } catch (error) {
