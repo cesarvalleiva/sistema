@@ -25,7 +25,7 @@ const ingresoSchema = new Schema({
             type: Number,
             required: true
         }
-    }]
+    }],
     estado: {type: Number, required: true},
     createdAt: {type: Date, default: Date.now}
 });
