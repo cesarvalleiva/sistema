@@ -1,9 +1,25 @@
 import models from '../models';
 
+async function aumentarStock(idarticulo, cantidad){
+    let {stock} = await models.Articulo.findOne({_id:idarticulo});
+    let nStock = parseInt(stock)+parseInt(cantidad);
+    const reg = await models.Articulo.findByIdAndUpdate({_id:idarticulo}, {stock:nStock});
+}
+
+async function disminuirStock(idarticulo, cantidad){
+    let {stock} = await models.Articulo.findOne({_id:idarticulo});
+    let nStock = parseInt(stock)-parseInt(cantidad);
+    const reg = await models.Articulo.findByIdAndUpdate({_id:idarticulo}, {stock:nStock});
+}
+
 export default {
     add: async (req, res, next) => {
         try {
             const reg = await models.Ingreso.create(req.body);
+            let detalles = req.body.detalles;
+            detalles.map(function(x){
+                aumentarStock(x._id, x.cantidad);
+            });
             res.status(200).json(reg);
         } catch (error) {
             res.status(500).send({
@@ -79,6 +95,10 @@ export default {
     activate: async (req, res, next) => {
         try {
             const reg = await models.Ingreso.findByIdAndUpdate({_id:req.body._id}, {estado:1}, {new:true})
+            let detalles = reg.detalles;
+            detalles.map(function(x){
+                aumentarStock(x._id, x.cantidad);
+            });
             res.status(200).json(reg);
         } catch (error) {
             res.status(500).send({
@@ -91,6 +111,10 @@ export default {
     deactivate: async (req, res, next) => {
         try {
             const reg = await models.Ingreso.findByIdAndUpdate({_id:req.body._id}, {estado:0}, {new:true})
+            let detalles = reg.detalles;
+            detalles.map(function(x){
+                disminuirStock(x._id, x.cantidad);
+            });
             res.status(200).json(reg);
         } catch (error) {
             res.status(500).send({
