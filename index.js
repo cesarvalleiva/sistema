@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 const dbUrl = 'mongodb://localhost:27017/dbsistema';
 
 // process.env.DBR
-mongoose.connect(dbUrl, {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(dbUrl, {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
 .then(mongoose => console.log('Se ha conectado a la BD en el puerto 27017'))
 .catch(err => console.log(err)); 
 

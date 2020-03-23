@@ -6,7 +6,7 @@ export default {
             const reg = await models.Articulo.create(req.body);
             res.status(200).json(reg);
         } catch (error) {
-            res.statu(500).send({
+            res.status(500).send({
                 message: 'Ocurrió un error'
             });
             next(error);
@@ -25,7 +25,7 @@ export default {
                 res.status(200).json(reg);
             }
         } catch (error) {
-            res.statu(500).send({
+            res.status(500).send({
                 message: 'Ocurrió un error'
             });
             next(error);
@@ -40,7 +40,7 @@ export default {
             .sort({'createdAt':-1});
             res.status(200).json(reg);
         } catch (error) {
-            res.statu(500).send({
+            res.status(500).send({
                 message: 'Ocurrió un error'
             });
             next(error);
@@ -60,7 +60,7 @@ export default {
                   {new: true})
                 res.status(200).json(reg);
         } catch (error) {
-            res.statu(500).send({
+            res.status(500).send({
                 message: 'Ocurrió un error'
             });
             next(error);
@@ -72,7 +72,7 @@ export default {
             const reg = await models.Articulo.findByIdAndDelete({_id:req.body._id})
             res.status(200).json(reg);
         } catch (error) {
-            res.statu(500).send({
+            res.status(500).send({
                 message: 'Ocurrió un error'
             });
             next(error);
@@ -84,7 +84,7 @@ export default {
             const reg = await models.Articulo.findByIdAndUpdate({_id:req.body._id}, {estado:1}, {new:true})
             res.status(200).json(reg);
         } catch (error) {
-            res.statu(500).send({
+            res.status(500).send({
                 message: 'Ocurrió un error'
             });
             next(error);
@@ -96,7 +96,7 @@ export default {
             const reg = await models.Articulo.findByIdAndUpdate({_id:req.body._id}, {estado:0}, {new:true})
             res.status(200).json(reg);
         } catch (error) {
-            res.statu(500).send({
+            res.status(500).send({
                 message: 'Ocurrió un error'
             });
             next(error);
