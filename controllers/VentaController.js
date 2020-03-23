@@ -52,7 +52,7 @@ export default {
     list: async (req, res, next) => {
         try {
             let valor = req.query.valor
-            const reg = await models.Venta.find({$or:[{'num_comprobante': new RegExp(valor,'i')},{'serie_comprobante': new RegExp(valor,'i')}]}, {createdAt:0})
+            const reg = await models.Venta.find({$or:[{'num_comprobante': new RegExp(valor,'i')},{'serie_comprobante': new RegExp(valor,'i')}]})
             .populate('usuario', {nombre: 1})
             .populate('persona', {nombre: 1})
             .sort({'createdAt':-1});
